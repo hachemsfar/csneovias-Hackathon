@@ -108,7 +108,7 @@ def data_visualization():
         df5.loc['Other languages']= 100-df4.sum()
         df4.loc['Total']= df4.sum()
 
-        st.table(df4)
+        st.write(df4)
 
         fig,ax=plt.subplots(figsize=(11,7))
         ax.pie(df5['nbre of courses %'],labels=df5.index, autopct='%1.1f%%',shadow=True, startangle=90)
