@@ -25,11 +25,11 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 def data_visualization():
     st.image("https://lirp.cdn-website.com/f98d10fa/dms3rep/multi/opt/d1c2e6ba-b890-4754-9d49-cd3ac8b84a69-640w.png")
     st.header("Our Team")
-    st.image("faces.PNG")
+    st.image("faces.png")
     st.header("Technologies Used:")
-    st.image("logos.PNG")
+    st.image("logos.png")
     st.header("Data Sources:")
-    st.image("companylogos.PNG")
+    st.image("companylogos.png")
     st.header("Volkshochschule Data Analysis")
 
     selected_years=st.multiselect('Choose Year(s)', ['2018', '2019', '2020'])
@@ -89,13 +89,13 @@ def data_visualization():
         ax1.bar(['2018', '2019', '2020'],Sprach_stat['nbre_courses'], color='g', label='cos')
         ax1.set_title("# Languages courses offered by VHS:")
         st.pyplot(fig1)
-        st.text("Due to Corona, VHS offered %"+str(round(100*(Sprach_stat['total_students'][-2]-Sprach_stat['total_students'][-1])/Sprach_stat['total_students'][-2],2))+" less courses than the previous year")
+        st.success("Due to Corona, VHS offered %"+str(round(100*(Sprach_stat['total_students'][-2]-Sprach_stat['total_students'][-1])/Sprach_stat['total_students'][-2],2))+" less courses than the previous year")
 
         fig1,ax1=plt.subplots(figsize=(11,7))
         ax1.bar(['2018', '2019', '2020'],Sprach_stat['total_students'], color='r', label='sin')
         ax1.set_title("# Students enrolled at VHS:")
         st.pyplot(fig1)
-        st.text("Due to Corona, The # of students enrolled Decreased by %"+str(round(100*(Sprach_stat['nbre_courses'][-2]-Sprach_stat['nbre_courses'][-1])/Sprach_stat['nbre_courses'][-2],2))+" than the previous year")
+        st.success("Due to Corona, The # of students enrolled Decreased by %"+str(round(100*(Sprach_stat['nbre_courses'][-2]-Sprach_stat['nbre_courses'][-1])/Sprach_stat['nbre_courses'][-2],2))+" than the previous year")
 
         st.subheader("Top States where the highest number of language learner")
         st.table(pd.DataFrame(Sprach_all).groupby("German State").sum().apply(lambda x: x.sort_values(ascending=False).head()))
@@ -158,9 +158,23 @@ def prediction():
         forecast['year']=forecast['year'].apply(lambda x:str(x).split("-")[0])
         st.write(forecast[1:])
 
-    st.header("Prediction")
+    st.header("Historical Data")
+    df2=pd.concat(df_list)
+    df2.columns=["semester","ID","University","Deutsche männlich","Deutsche weiblich","Deutsche Insgesamt","Ausländer männlich","Ausländer weiblich","Ausländer Insgesamt","Insgesamt männlich","Insgesamt weiblich","Insgesamt"]
+    df2=df2[df2["University"]==uni_filter]
+    df2.sort_values('semester',ascending=True,inplace=True)
+    st.write(df2[["semester","University","Deutsche männlich","Deutsche weiblich","Deutsche Insgesamt","Ausländer männlich","Ausländer weiblich","Ausländer Insgesamt","Insgesamt männlich","Insgesamt weiblich","Insgesamt"]].reset_index())
+    """
+    f,ax=plt.subplots(figsize=(18,8))
+    column_to_analyse = st.selectbox("Select the column to Analyse:",["Deutsche","Ausländer","Insgesamt"])
+    df2["year"]=df2["semester"].apply(lambda x: x[3:].split("/")[0])
+    
+    for i in df2.columns:
+        if(i.startswith(column_to_analyse)):
+            ax.plot(df2["year"], df2[i],label=str(i))
 
-
+    st.pyplot(f)
+    """
     
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
