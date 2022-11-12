@@ -163,7 +163,7 @@ def prediction():
     df2.columns=["semester","ID","University","Deutsche männlich","Deutsche weiblich","Deutsche Insgesamt","Ausländer männlich","Ausländer weiblich","Ausländer Insgesamt","Insgesamt männlich","Insgesamt weiblich","Insgesamt"]
     df2=df2[df2["University"]==uni_filter]
     df2.sort_values('semester',ascending=True,inplace=True)
-    st.write(df2[["semester","University","Deutsche männlich","Deutsche weiblich","Deutsche Insgesamt","Ausländer männlich","Ausländer weiblich","Ausländer Insgesamt","Insgesamt männlich","Insgesamt weiblich","Insgesamt"]].reset_index())
+    st.write(df2[["semester","University","Deutsche männlich","Deutsche weiblich","Deutsche Insgesamt","Ausländer männlich","Ausländer weiblich","Ausländer Insgesamt","Insgesamt männlich","Insgesamt weiblich","Insgesamt"]].reset_index().drop("index",axis=1))
 
     
 page_names_to_funcs = {
