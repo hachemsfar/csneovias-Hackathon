@@ -165,6 +165,27 @@ def prediction():
     df2.sort_values('semester',ascending=True,inplace=True)
     st.write(df2[["semester","University","Deutsche männlich","Deutsche weiblich","Deutsche Insgesamt","Ausländer männlich","Ausländer weiblich","Ausländer Insgesamt","Insgesamt männlich","Insgesamt weiblich","Insgesamt"]].reset_index().drop("index",axis=1))
 
+
+    for j in ["Deutsche männlich","Deutsche weiblich","Deutsche Insgesamt","Ausländer männlich","Ausländer weiblich","Ausländer Insgesamt","Insgesamt männlich","Insgesamt weiblich","Insgesamt"]:
+        df2[j] = df2[j].astype(float)
+        
+    fig,ax=plt.subplots(figsize=(11,7))
+    df3=df2.fillna(df2.mean())
+    ax.pie([df3['Deutsche männlich'].mean(),df3['Deutsche weiblich'].mean()], labels=['Male','Female'], autopct='%1.1f%%',shadow=True, startangle=90)
+    ax.set_title("German: Male/Female Percentage @:"+uni_filter)
+    st.pyplot(fig)
+
+    fig,ax=plt.subplots(figsize=(11,7))
+    df3=df2.fillna(df2.mean())
+    ax.pie([df3['Ausländer männlich'].mean(),df3['Ausländer weiblich'].mean()], labels=['Male','Female'], autopct='%1.1f%%',shadow=True, startangle=90)
+    ax.set_title("Auslander: Male/Female Percentage @:"+uni_filter)
+    st.pyplot(fig)
+
+    fig,ax=plt.subplots(figsize=(11,7))
+    df3=df2.fillna(df2.mean())
+    ax.pie([df3['Deutsche Insgesamt'].mean(),df3['Ausländer Insgesamt'].mean()], labels=['Deutsche','Ausländer'], autopct='%1.1f%%',shadow=True, startangle=90)
+    ax.set_title("Deutsche/Ausländer Percentage @:"+uni_filter)
+    st.pyplot(fig)
     
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
