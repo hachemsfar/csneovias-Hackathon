@@ -98,7 +98,7 @@ def data_visualization():
         st.success("Due to Corona, The # of students enrolled Decreased by %"+str(round(100*(Sprach_stat['nbre_courses'][-2]-Sprach_stat['nbre_courses'][-1])/Sprach_stat['nbre_courses'][-2],2))+" than the previous year")
 
         st.subheader("Top States where the highest number of language learner")
-        st.table(pd.DataFrame(Sprach_all).groupby("German State").sum().apply(lambda x: x.sort_values(ascending=False).head()))
+        st.write(pd.DataFrame(Sprach_all).groupby("German State").sum().apply(lambda x: x.sort_values(ascending=False).head()))
 
         st.subheader("Statistic about each language course offered by VHS")
         st.write(df3[1:])
