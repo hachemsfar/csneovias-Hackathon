@@ -164,17 +164,7 @@ def prediction():
     df2=df2[df2["University"]==uni_filter]
     df2.sort_values('semester',ascending=True,inplace=True)
     st.write(df2[["semester","University","Deutsche männlich","Deutsche weiblich","Deutsche Insgesamt","Ausländer männlich","Ausländer weiblich","Ausländer Insgesamt","Insgesamt männlich","Insgesamt weiblich","Insgesamt"]].reset_index())
-    """
-    f,ax=plt.subplots(figsize=(18,8))
-    column_to_analyse = st.selectbox("Select the column to Analyse:",["Deutsche","Ausländer","Insgesamt"])
-    df2["year"]=df2["semester"].apply(lambda x: x[3:].split("/")[0])
-    
-    for i in df2.columns:
-        if(i.startswith(column_to_analyse)):
-            ax.plot(df2["year"], df2[i],label=str(i))
 
-    st.pyplot(f)
-    """
     
 page_names_to_funcs = {
 "Data Visualization": data_visualization,
